@@ -42,3 +42,9 @@ constants/ <br>
 utils/ <br>
    All shared helper functions, including the not-yet-implemented graphical webGL functions,
    will be stored here.
+
+App.js <br>
+   The entry to the program.
+
+Store.js <br>
+   The very base of the redux store.
