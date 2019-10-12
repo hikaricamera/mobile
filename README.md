@@ -30,3 +30,19 @@ constants/
 utils/
    All shared helper functions, including the not-yet-implemented graphical webGL functions,
    will be stored here.
+
+## Dev Environment
+
+Visual studio code is the official tool for the development, as it supports a myriad of extensions
+that facilitates the development process. Following are some highly recommended extensions that
+might make your life easier:
+
+1. Eslint. Don't forget to do `npm install eslint` before installing the extensions as it requires
+   the node module `eslint` to perform any syntax checking.
+
+2. TabNine. A supreme handy extension to audo-complete syntax with the support of machine learning.
+
+3. Prettier - Code formatter. Pretty self-explanatory tool to beautify your code. Add the following 
+   to your `settings.json`: `"editor.formatOnSave": true`.
+
+4. Flow language support.
