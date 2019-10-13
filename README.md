@@ -56,8 +56,8 @@ Visual studio code is the official tool for the development, as it supports a my
 that facilitates the development process. Following are some highly recommended extensions that
 might make your life easier:
 
-1. Eslint. If eslint cannot start normally, try installing `eslint` and `babel-eslint`. You may
-   also allow eslint to format on save in user settings. The rules for eslinter live in the file
+1. Eslint (Deprecated). If eslint cannot start normally, try installing `eslint` and `babel-eslint`.
+   You may also allow eslint to format on save in user settings. The rules for eslinter live in the file
    `eslintrc.json`.
 
 2. TabNine. A supreme handy extension to audo-complete syntax with the support of machine learning.
@@ -65,9 +65,4 @@ might make your life easier:
 3. Prettier - Code formatter. Pretty self-explanatory tool to beautify your code. Add the following
    to your `settings.json`: `"editor.formatOnSave": true`.
 
-4. Flow language support.
-
-## Pushing Changes
-
-When developing a new feature, **please check out a new branch!** A handy script `dev-land` is provided
-under `scripts/` to land the changes and prevent any diabolical act of annihilating the codebase.
+4. Tslint. This project uses typescript that supports compile-time type-checking.
