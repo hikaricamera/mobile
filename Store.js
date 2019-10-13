@@ -1,6 +1,7 @@
 // @flow
 import { createStore } from 'redux';
 
-const store = createStore();
+/* Reducers */
+import reducers from './reducers/DataReducer';
 
-export default store;
+export default createStore(reducers);

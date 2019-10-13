@@ -41,10 +41,14 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+printf "${GREEN}Pushing to master!${NC}\n"
 git push -u origin master
 if [ $? -ne 0 ]; then
     printf "${RED}Updating master failed!${NC}\n"
     exit 1
 fi
+
+printf "${GREEN}Delete branch ...${NC}\n"
+git branch -D ${branch_name}
 
 printf "${GREEN}Landing complete!${NC}\n"
