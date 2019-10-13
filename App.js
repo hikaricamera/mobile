@@ -1,11 +1,23 @@
+// @flow
 import { AppLoading } from 'expo';
 import React, { useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { Provider } from 'react-redux';
 
-export default function App(props) {
+/* Store */
+import store from './Store';
+
+const loadResourcesAsync = async () => {};
+
+const handleLoadingError = () => {};
+
+const handleFinishLoading = (setLoadingComplete) => {
+  setLoadingComplete(true);
+};
+
+const App = () => {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
-  if (!isLoadingComplete && !props.skipLoadingScreen) {
+  if (!isLoadingComplete) {
     return (
       <AppLoading
         startAsync={loadResourcesAsync}
@@ -13,28 +25,9 @@ export default function App(props) {
         onFinish={() => handleFinishLoading(setLoadingComplete)}
       />
     );
-  } else {
-    return (
-      <View style={styles.container}>
-        <Text>
-          asdjaiosds
-        </Text>
-      </View>
-    );
   }
-}
 
-async function loadResourcesAsync() {}
+  return <Provider store={store} />;
+};
 
-function handleLoadingError() {}
-
-function handleFinishLoading(setLoadingComplete) {
-  setLoadingComplete(true);
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
+export default App;
