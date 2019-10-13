@@ -57,7 +57,8 @@ that facilitates the development process. Following are some highly recommended 
 might make your life easier:
 
 1. Eslint. If eslint cannot start normally, try installing `eslint` and `babel-eslint`. You may
-   also allow eslint to format on save in user settings.
+   also allow eslint to format on save in user settings. The rules for eslinter live in the file
+   `eslintrc.json`.
 
 2. TabNine. A supreme handy extension to audo-complete syntax with the support of machine learning.
 
@@ -65,3 +66,8 @@ might make your life easier:
    to your `settings.json`: `"editor.formatOnSave": true`.
 
 4. Flow language support.
+
+## Pushing Changes
+
+When developing a new feature, **please check out a new branch!** A handy script `dev-land` is provided
+under `scripts/` to land the changes and prevent any diabolical act of annihilating the codebase.

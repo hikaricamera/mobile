@@ -6,6 +6,11 @@ NC='\033[0m'
 
 branch_name=`git branch | grep \* | cut -d ' ' -f2`
 
+if [ ${branch_name} -eq "master" ]; then
+    printf "${RED}Please check out another branch!${NC}"
+    exit 1
+fi
+
 printf "${GREEN}On branch ${branch_name}${NC}\n"
 printf "${GREEN}Start Landing${NC}\n"
 
