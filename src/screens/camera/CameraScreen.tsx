@@ -2,20 +2,23 @@
 import React from 'react';
 
 /* Components */
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
 import CameraTopBar from './CameraTopBar';
 import CameraBottomBar from './CameraBottomBar';
 
 /* Styles */
 const styles = StyleSheet.create({
-  wrapper: {},
+  wrapper: {
+    flex: 1,
+    flexDirection: 'column'
+  },
 });
 
 const CameraScreen = () => (
-  <View style={styles.wrapper}>
+  <SafeAreaView style={styles.wrapper}>
     <CameraTopBar />
     <CameraBottomBar />
-  </View>
+  </SafeAreaView>
 );
 
 export default CameraScreen;
