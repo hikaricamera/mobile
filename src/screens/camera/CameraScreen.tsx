@@ -4,6 +4,7 @@ import React from 'react';
 /* Components */
 import { StyleSheet, View } from 'react-native';
 import CameraTopBar from './CameraTopBar';
+import CameraBottomBar from './CameraBottomBar';
 
 /* Styles */
 const styles = StyleSheet.create({
@@ -13,6 +14,7 @@ const styles = StyleSheet.create({
 const CameraScreen = () => (
   <View style={styles.wrapper}>
     <CameraTopBar />
+    <CameraBottomBar />
   </View>
 );
 
