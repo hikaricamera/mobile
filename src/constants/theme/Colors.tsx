@@ -7,6 +7,7 @@ import color from 'color';
 import { Colors as PaperColors } from 'react-native-paper';
 
 const CommonColorsMixin = {
+  white: '#ffffff',
   // Common grey colors
   grey1: '#192a32',
   grey2: '#48636f',
