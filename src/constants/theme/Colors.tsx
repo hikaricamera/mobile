@@ -1,5 +1,3 @@
-// @flow
-
 /* Utils */
 import color from 'color';
 
@@ -7,7 +5,6 @@ import color from 'color';
 import { Colors as PaperColors } from 'react-native-paper';
 
 const CommonColorsMixin = {
-  white: '#ffffff',
   // Common grey colors
   grey1: '#192a32',
   grey2: '#48636f',
@@ -25,8 +22,8 @@ const ThemeColorMixin = {
   surface: '#d9faff',
   error: '#f0134d',
   text: PaperColors.black,
-  onBackground: '#000000',
-  onSurface: '#000000',
+  onBackground: PaperColors.black,
+  onSurface: PaperColors.black,
   disabled: color(PaperColors.black)
     .alpha(0.26)
     .rgb()

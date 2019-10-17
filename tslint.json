@@ -5,7 +5,8 @@
   "rules": {
     "object-literal-sort-keys": false,
     "quotemark": [true, "single"],
-    "no-empty": false
+    "no-empty": false,
+    "ordered-imports": false
   },
   "rulesDirectory": []
 }

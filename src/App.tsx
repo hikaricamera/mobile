@@ -1,4 +1,3 @@
-// @flow
 import { AppLoading } from 'expo';
 import React, { useState } from 'react';
 import { Provider as PaperProvider } from 'react-native-paper';

@@ -1,5 +1,3 @@
-// @flow
-
 /* Constants */
 import allColors from './Colors';
 import allFonts from './Fonts';

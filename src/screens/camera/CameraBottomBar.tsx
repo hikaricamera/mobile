@@ -1,16 +1,18 @@
-// @flow
 import React from 'react';
 
 /* Components */
-import { StyleSheet, View, ImageBackground } from 'react-native';
-import { IconButton, withTheme } from 'react-native-paper';
+import { StyleSheet, ImageBackground } from 'react-native';
+import {
+  IconButton,
+  withTheme,
+  Colors as PaperColors,
+} from 'react-native-paper';
 import ImageIcon from '../../assets/icons/image.png';
 import WheelIcon from '../../assets/icons/color_wheel.png';
 import CameraButtonIcon from '../../assets/icons/camera_button.png';
 import PaletteIcon from '../../assets/icons/palette.png';
 import SliderIcon from '../../assets/icons/slider.png';
 import BottomBackgroundImage from '../../assets/images/background_bottom.png';
-import CommonColorsMixin from '../../constants/theme/Colors';
 
 /* Types */
 
@@ -28,15 +30,38 @@ const styles = StyleSheet.create({
 
 const CameraBottomBar = () => {
   return (
-    <View>
-      <ImageBackground source={BottomBackgroundImage} style={styles.wrapper}>
-        <IconButton icon={ImageIcon} size={24} color={CommonColorsMixin.white} animated />
-        <IconButton icon={WheelIcon} size={24} color={CommonColorsMixin.white} animated />
-        <IconButton icon={CameraButtonIcon} size={72} color={CommonColorsMixin.white} animated />
-        <IconButton icon={PaletteIcon} size={24} color={CommonColorsMixin.white} animated />
-        <IconButton icon={SliderIcon} size={24} color={CommonColorsMixin.white} animated />
-      </ImageBackground>
-    </View>
+    <ImageBackground source={BottomBackgroundImage} style={styles.wrapper}>
+      <IconButton
+        icon={ImageIcon}
+        size={24}
+        color={PaperColors.white}
+        animated
+      />
+      <IconButton
+        icon={WheelIcon}
+        size={24}
+        color={PaperColors.white}
+        animated
+      />
+      <IconButton
+        icon={CameraButtonIcon}
+        size={72}
+        color={PaperColors.white}
+        animated
+      />
+      <IconButton
+        icon={PaletteIcon}
+        size={24}
+        color={PaperColors.white}
+        animated
+      />
+      <IconButton
+        icon={SliderIcon}
+        size={24}
+        color={PaperColors.white}
+        animated
+      />
+    </ImageBackground>
   );
 };
 
