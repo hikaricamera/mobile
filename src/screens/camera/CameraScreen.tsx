@@ -1,24 +1,32 @@
 import React from 'react';
 
 /* Components */
-import { StyleSheet, SafeAreaView, StatusBar } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import CameraTopBar from './CameraTopBar';
 import CameraBottomBar from './CameraBottomBar';
+import CameraContainer from './CameraContainer';
+import HikariStatusBar from '../../components/HikariStatusBar';
 
 /* Styles */
 const styles = StyleSheet.create({
   wrapper: {
-    display: 'flex',
+    flex: 1,
     flexDirection: 'column',
+  },
+  upperWrapper: {
+    flex: 1,
   },
 });
 
 const CameraScreen = () => (
-  <SafeAreaView style={styles.wrapper}>
-    <StatusBar hidden />
-    <CameraTopBar />
+  <View style={styles.wrapper}>
+    <HikariStatusBar />
+    <View style={styles.upperWrapper}>
+      <CameraContainer />
+      <CameraTopBar />
+    </View>
     <CameraBottomBar />
-  </SafeAreaView>
+  </View>
 );
 
 export default CameraScreen;

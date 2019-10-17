@@ -20,7 +20,7 @@ import BottomBackgroundImage from '../../assets/images/background_bottom.png';
 const styles = StyleSheet.create({
   wrapper: {
     width: '100%',
-    height: 108,
+    height: 168,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
