@@ -6,13 +6,13 @@ import { Colors as PaperColors } from 'react-native-paper';
 
 const CommonColorsMixin = {
   // Common grey colors
-  grey1: '#192a32',
-  grey2: '#48636f',
-  grey3: '#7e9aa6',
-  grey4: '#afc7d1',
-  grey5: '#d4e3eb',
-  grey6: '#f0f5f7',
-  grey7: '#f8fafb',
+  grey1: '#192a33',
+  grey2: '#486370',
+  grey3: '#7e9aa7',
+  grey4: '#afc7d2',
+  grey5: '#d4e3ec',
+  grey6: '#f0f5f8',
+  grey7: '#f8fafc',
 };
 
 const ThemeColorMixin = {

@@ -1,11 +1,15 @@
 /* Actions */
 import { UI_SET_STATUS_BAR_HEIGHT } from '../actions/UIControlAction';
 
+/* Types */
+import { StatesType, ActionsType } from '../typings/UIControlReduxType';
+import { FullStatesType } from '../typings/DataType';
+
 const DEFAULT_STATE = {
   statusBarHeight: 0,
 };
 
-export default (state = DEFAULT_STATE, action: any) => {
+export default (state: StatesType = DEFAULT_STATE, action: ActionsType) => {
   switch (action.type) {
     case UI_SET_STATUS_BAR_HEIGHT:
       return {
@@ -19,7 +23,7 @@ export default (state = DEFAULT_STATE, action: any) => {
 };
 
 /* Selector */
-export const getUIControlState = (state: any) => state.ui;
+export const getUIControlState = (state: FullStatesType) => state.ui;
 
-export const getStatusBarHeight = (state: any) =>
+export const getStatusBarHeight = (state: FullStatesType) =>
   getUIControlState(state).statusBarHeight;
