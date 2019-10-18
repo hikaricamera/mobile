@@ -1,10 +1,19 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
+
 /* Components */
-import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Camera } from 'expo-camera';
 
+/* Actions */
+import { changeCapturingState } from '../../actions/CameraAction';
+
+/* Selectors */
+import { getIsCapturingPhoto } from '../../reducers/CameraReducer';
+
 /* Utils */
 import * as Permissions from 'expo-permissions';
+import * as MediaLibrary from 'expo-media-library';
 
 /* Constants */
 const CAMERA_PERMISSION = {
@@ -12,6 +21,23 @@ const CAMERA_PERMISSION = {
   DISALLOWED: 1,
   GRANTED: 2,
 };
+
+/* Types */
+import { Dispatch } from 'redux';
+import { FullStatesType } from '../../typings/DataType';
+
+declare interface PropsType {
+  isCapturing: boolean;
+  completeCapturing: () => void;
+}
+
+const mapStateToProps = (state: FullStatesType) => ({
+  isCapturing: getIsCapturingPhoto(state),
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  completeCapturing: () => dispatch(changeCapturingState(false)),
+});
 
 /* Styles */
 const styles = StyleSheet.create({
@@ -30,7 +56,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const CameraContainer = () => {
+const CameraContainer = ({ isCapturing, completeCapturing }: PropsType) => {
+  // Refs
+  const cameraRef = useRef<Camera>(null);
+
   // States
   const [cameraPermissionGranted, setCameraPermissionGranted] = useState(
     CAMERA_PERMISSION.CHECKING,
@@ -46,9 +75,32 @@ const CameraContainer = () => {
     }
   };
 
+  const checkCameraRollPermission = async () => {
+    await Permissions.askAsync(Permissions.CAMERA_ROLL);
+  };
+
   useEffect(() => {
     checkCameraPermission();
+    checkCameraRollPermission();
   }, []);
+
+  const onPictureSaved = async (photo: any) => {
+    const { uri } = photo;
+    await MediaLibrary.createAssetAsync(uri);
+  };
+
+  useEffect(() => {
+    if (isCapturing) {
+      if (cameraRef && cameraRef.current) {
+        cameraRef.current.takePictureAsync({
+          quality: 1.0,
+          exif: false,
+          onPictureSaved,
+        });
+      }
+      completeCapturing();
+    }
+  }, [isCapturing]);
 
   // Render
   if (cameraPermissionGranted === CAMERA_PERMISSION.CHECKING) {
@@ -63,6 +115,7 @@ const CameraContainer = () => {
   return (
     <View style={styles.wrapper}>
       <Camera
+        ref={cameraRef}
         style={styles.cameraWrapper}
         type={Camera.Constants.Type.back}
         flashMode={Camera.Constants.FlashMode.auto}
@@ -74,4 +127,7 @@ const CameraContainer = () => {
   );
 };
 
-export default CameraContainer;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CameraContainer);

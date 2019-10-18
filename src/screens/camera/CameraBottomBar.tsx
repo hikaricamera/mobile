@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 /* Components */
 import { StyleSheet, ImageBackground } from 'react-native';
@@ -14,7 +15,19 @@ import PaletteIcon from '../../assets/icons/palette.png';
 import SliderIcon from '../../assets/icons/slider.png';
 import BottomBackgroundImage from '../../assets/images/background_bottom.png';
 
+/* Actions */
+import { changeCapturingState } from '../../actions/CameraAction';
+
 /* Types */
+import { Dispatch } from 'redux';
+
+declare interface PropsType {
+  capturePhoto: () => void;
+}
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  capturePhoto: () => dispatch(changeCapturingState(true)),
+});
 
 /* Styles */
 const styles = StyleSheet.create({
@@ -28,7 +41,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const CameraBottomBar = () => {
+const CameraBottomBar = ({ capturePhoto }: PropsType) => {
   return (
     <ImageBackground source={BottomBackgroundImage} style={styles.wrapper}>
       <IconButton
@@ -45,9 +58,9 @@ const CameraBottomBar = () => {
       />
       <IconButton
         icon={CameraButtonIcon}
-        size={72}
+        size={96}
         color={PaperColors.white}
-        animated
+        onPress={capturePhoto}
       />
       <IconButton
         icon={PaletteIcon}
@@ -65,4 +78,9 @@ const CameraBottomBar = () => {
   );
 };
 
-export default withTheme(CameraBottomBar);
+export default withTheme(
+  connect(
+    null,
+    mapDispatchToProps,
+  )(CameraBottomBar),
+);
