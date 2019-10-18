@@ -1,11 +1,15 @@
 /* Actions */
 import { CAMERA_CHANGING_CAPTURING_STATE } from '../actions/CameraAction';
 
+/* Types */
+import { StatesType, ActionsType } from '../typings/CameraReduxType';
+import { FullStatesType } from '../typings/DataType';
+
 const DEFAULT_STATE = {
   capturingPhoto: false,
 };
 
-export default (state = DEFAULT_STATE, action) => {
+export default (state: StatesType = DEFAULT_STATE, action: ActionsType) => {
   switch (action.type) {
     case CAMERA_CHANGING_CAPTURING_STATE:
       return {
@@ -19,7 +23,7 @@ export default (state = DEFAULT_STATE, action) => {
 };
 
 /* Selector */
-export const getCameraState = (state) => state.camera;
+export const getCameraState = (state: FullStatesType) => state.camera;
 
-export const getIsCapturingPhoto = (state) =>
+export const getIsCapturingPhoto = (state: FullStatesType) =>
   getCameraState(state).capturingPhoto;

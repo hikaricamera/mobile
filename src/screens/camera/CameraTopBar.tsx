@@ -17,16 +17,16 @@ import { getStatusBarHeight } from '../../reducers/UIControlReducer';
 const CAMERA_TOP_BAR_HEIGHT = 30;
 
 /* Types */
-declare interface ICameraTopBar {
+declare interface PropsType {
   statusBarHeight: number;
 }
 
-declare interface IStyles {
+declare interface StylesType {
   statusBarHeight: number;
 }
 
 /* Styles */
-const styles = ({ statusBarHeight }: IStyles) =>
+const styles = ({ statusBarHeight }: StylesType) =>
   StyleSheet.create({
     wrapper: {
       width: '100%',
@@ -51,36 +51,18 @@ const mapStateToProps = (state: any) => ({
   statusBarHeight: getStatusBarHeight(state),
 });
 
-const CameraTopBar = ({ statusBarHeight }: ICameraTopBar) => {
-  const pStyles = styles({ statusBarHeight });
+const CameraTopBar = ({ statusBarHeight }: PropsType) => {
+  // Helpers
 
+  // Render
+  const pStyles = styles({ statusBarHeight });
   return (
     <ImageBackground source={TopBackgroundImage} style={pStyles.wrapper}>
       <View style={pStyles.mainWrapper}>
-        <IconButton
-          icon={CartIcon}
-          size={24}
-          color={PaperColors.white}
-          animated
-        />
-        <IconButton
-          icon={FlashIcon}
-          size={24}
-          color={PaperColors.white}
-          animated
-        />
-        <IconButton
-          icon={LoopIcon}
-          size={24}
-          color={PaperColors.white}
-          animated
-        />
-        <IconButton
-          icon={SettingsIcon}
-          size={24}
-          color={PaperColors.white}
-          animated
-        />
+        <IconButton icon={CartIcon} size={24} color={PaperColors.white} />
+        <IconButton icon={FlashIcon} size={24} color={PaperColors.white} />
+        <IconButton icon={LoopIcon} size={24} color={PaperColors.white} />
+        <IconButton icon={SettingsIcon} size={24} color={PaperColors.white} />
       </View>
     </ImageBackground>
   );

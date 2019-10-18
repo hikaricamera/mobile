@@ -14,16 +14,19 @@ import { getStatusBarHeight } from '../reducers/UIControlReducer';
 import Constants from 'expo-constants';
 
 /* Types */
-declare interface IHikariStatusBar {
+import { FullStatesType } from '../typings/DataType';
+import { Dispatch } from 'redux';
+
+declare interface PropsType {
   reportStatusBarHeight: (height: number) => void;
   statusBarHeight: number;
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: FullStatesType) => ({
   statusBarHeight: getStatusBarHeight(state),
 });
 
-const mapDispatchToProps = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   reportStatusBarHeight: (height: number) =>
     dispatch(setStatusBarHeight(height)),
 });
@@ -31,7 +34,7 @@ const mapDispatchToProps = (dispatch: any) => ({
 const HikariStatusBar = ({
   reportStatusBarHeight,
   statusBarHeight,
-}: IHikariStatusBar) => {
+}: PropsType) => {
   // States
   const [hideStatusBar, setHideStatusBar] = useState(false);
 
