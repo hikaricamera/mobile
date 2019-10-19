@@ -17,13 +17,13 @@ import { changeCameraType } from '../../actions/CameraAction';
 /* Selectors */
 import { getStatusBarHeight } from '../../reducers/UIControlReducer';
 import { getCameraType } from '../../reducers/CameraReducer';
-import { CameraType } from '../../typings/CameraConstantType';
 
 /* Constants */
 const CAMERA_TOP_BAR_HEIGHT = 30;
 
 /* Types */
 import { Dispatch } from 'redux';
+import { CameraType } from '../../typings/CameraConstantType';
 
 declare interface PropsType {
   cameraType: CameraType;

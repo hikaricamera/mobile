@@ -4,10 +4,12 @@ import {
   CAMERA_CHANGE_CAMERA_TYPE,
 } from '../actions/CameraAction';
 
+/* Constant */
+import { Camera } from 'expo-camera';
+
 /* Types */
 import { StatesType, ActionsType } from '../typings/CameraReduxType';
 import { FullStatesType } from '../typings/DataType';
-import { Camera } from 'expo-camera';
 
 const DEFAULT_STATE = {
   capturingPhoto: false,
