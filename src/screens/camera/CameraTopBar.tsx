@@ -9,16 +9,26 @@ import FlashIcon from '../../assets/icons/flash.png';
 import LoopIcon from '../../assets/icons/loop.png';
 import SettingsIcon from '../../assets/icons/settings.png';
 import TopBackgroundImage from '../../assets/images/background_top.png';
+import { Camera } from 'expo-camera';
+
+/* Actions */
+import { changeCameraType } from '../../actions/CameraAction';
 
 /* Selectors */
 import { getStatusBarHeight } from '../../reducers/UIControlReducer';
+import { getCameraType } from '../../reducers/CameraReducer';
 
 /* Constants */
 const CAMERA_TOP_BAR_HEIGHT = 30;
 
 /* Types */
+import { Dispatch } from 'redux';
+import { CameraType } from '../../typings/CameraConstantType';
+
 declare interface PropsType {
+  cameraType: CameraType;
   statusBarHeight: number;
+  alterCameraType: (cameraType: CameraType) => void;
 }
 
 declare interface StylesType {
@@ -49,10 +59,29 @@ const styles = ({ statusBarHeight }: StylesType) =>
 
 const mapStateToProps = (state: any) => ({
   statusBarHeight: getStatusBarHeight(state),
+  cameraType: getCameraType(state),
 });
 
-const CameraTopBar = ({ statusBarHeight }: PropsType) => {
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  alterCameraType: (cameraType: any) =>
+    dispatch(
+      changeCameraType(
+        cameraType === Camera.Constants.Type.back
+          ? Camera.Constants.Type.front
+          : Camera.Constants.Type.back,
+      ),
+    ),
+});
+
+const CameraTopBar = ({
+  statusBarHeight,
+  cameraType,
+  alterCameraType,
+}: PropsType) => {
   // Helpers
+  const onClickLoopIcon = () => {
+    alterCameraType(cameraType);
+  };
 
   // Render
   const pStyles = styles({ statusBarHeight });
@@ -61,11 +90,19 @@ const CameraTopBar = ({ statusBarHeight }: PropsType) => {
       <View style={pStyles.mainWrapper}>
         <IconButton icon={CartIcon} size={24} color={PaperColors.white} />
         <IconButton icon={FlashIcon} size={24} color={PaperColors.white} />
-        <IconButton icon={LoopIcon} size={24} color={PaperColors.white} />
+        <IconButton
+          icon={LoopIcon}
+          size={24}
+          color={PaperColors.white}
+          onPress={onClickLoopIcon}
+        />
         <IconButton icon={SettingsIcon} size={24} color={PaperColors.white} />
       </View>
     </ImageBackground>
   );
 };
 
-export default connect(mapStateToProps)(CameraTopBar);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CameraTopBar);
