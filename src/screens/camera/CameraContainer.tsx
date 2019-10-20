@@ -9,7 +9,11 @@ import { Camera } from 'expo-camera';
 import { changeCapturingState } from '../../actions/CameraAction';
 
 /* Selectors */
-import { getIsCapturingPhoto, getCameraType } from '../../reducers/CameraReducer';
+import {
+  getIsCapturingPhoto,
+  getCameraType,
+  getCameraFlashMode,
+} from '../../reducers/CameraReducer';
 
 /* Utils */
 import * as Permissions from 'expo-permissions';
@@ -25,16 +29,21 @@ const CAMERA_PERMISSION = {
 /* Types */
 import { Dispatch } from 'redux';
 import { FullStatesType } from '../../typings/DataType';
-import { CameraType } from '../../typings/CameraConstantType';
+import {
+  CameraTypeType,
+  CameraFlashModeType,
+} from '../../typings/CameraConstantType';
 
 declare interface PropsType {
   isCapturing: boolean;
-  cameraType: CameraType;
+  cameraType: CameraTypeType;
+  cameraFlashMode: CameraFlashModeType;
   completeCapturing: () => void;
 }
 
 const mapStateToProps = (state: FullStatesType) => ({
   isCapturing: getIsCapturingPhoto(state),
+  cameraFlashMode: getCameraFlashMode(state),
   cameraType: getCameraType(state),
 });
 
@@ -59,7 +68,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const CameraContainer = ({ isCapturing, cameraType, completeCapturing }: PropsType) => {
+const CameraContainer = ({
+  isCapturing,
+  cameraType,
+  cameraFlashMode,
+  completeCapturing,
+}: PropsType) => {
   // Refs
   const cameraRef = useRef<Camera>(null);
 
@@ -121,7 +135,7 @@ const CameraContainer = ({ isCapturing, cameraType, completeCapturing }: PropsTy
         ref={cameraRef}
         style={styles.cameraWrapper}
         type={cameraType}
-        flashMode={Camera.Constants.FlashMode.auto}
+        flashMode={cameraFlashMode}
         autoFocus={Camera.Constants.AutoFocus.on}
       >
         <View style={styles.cameraViewWrapper} />

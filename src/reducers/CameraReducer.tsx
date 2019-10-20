@@ -2,6 +2,7 @@
 import {
   CAMERA_CHANGING_CAPTURING_STATE,
   CAMERA_CHANGE_CAMERA_TYPE,
+  CAMERA_CHANGE_FLASH_MODE,
 } from '../actions/CameraAction';
 
 /* Constant */
@@ -14,6 +15,7 @@ import { FullStatesType } from '../typings/DataType';
 const DEFAULT_STATE = {
   capturingPhoto: false,
   cameraType: Camera.Constants.Type.back,
+  cameraFlashMode: Camera.Constants.FlashMode.auto,
 };
 
 export default (state: StatesType = DEFAULT_STATE, action: ActionsType) => {
@@ -27,6 +29,11 @@ export default (state: StatesType = DEFAULT_STATE, action: ActionsType) => {
       return {
         ...state,
         cameraType: action.payload,
+      };
+    case CAMERA_CHANGE_FLASH_MODE:
+      return {
+        ...state,
+        cameraFlashMode: action.payload,
       };
     default:
       break;
@@ -42,3 +49,6 @@ export const getIsCapturingPhoto = (state: FullStatesType) =>
 
 export const getCameraType = (state: FullStatesType) =>
   getCameraState(state).cameraType;
+
+export const getCameraFlashMode = (state: FullStatesType) =>
+  getCameraState(state).cameraFlashMode;
