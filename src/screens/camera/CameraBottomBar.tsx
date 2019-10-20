@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 /* Components */
-import { StyleSheet, ImageBackground } from 'react-native';
+import { StyleSheet, ImageBackground, View } from 'react-native';
 import {
   IconButton,
   withTheme,
@@ -34,9 +34,28 @@ const styles = StyleSheet.create({
   wrapper: {
     width: '100%',
     height: 168,
+
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  leftWrapper: {
+    height: 40,
+    width: 120,
+    marginRight: 36,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  rightWrapper: {
+    height: 40,
+    width: 120,
+    marginLeft: 36,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
 });
@@ -44,36 +63,40 @@ const styles = StyleSheet.create({
 const CameraBottomBar = ({ capturePhoto }: PropsType) => {
   return (
     <ImageBackground source={BottomBackgroundImage} style={styles.wrapper}>
-      <IconButton
-        icon={ImageIcon}
-        size={24}
-        color={PaperColors.white}
-        animated
-      />
-      <IconButton
-        icon={WheelIcon}
-        size={24}
-        color={PaperColors.white}
-        animated
-      />
+      <View style={styles.leftWrapper}>
+        <IconButton
+          icon={ImageIcon}
+          size={24}
+          color={PaperColors.white}
+          animated
+        />
+        <IconButton
+          icon={WheelIcon}
+          size={24}
+          color={PaperColors.white}
+          animated
+        />
+      </View>
       <IconButton
         icon={CameraButtonIcon}
         size={96}
         color={PaperColors.white}
         onPress={capturePhoto}
       />
-      <IconButton
-        icon={PaletteIcon}
-        size={24}
-        color={PaperColors.white}
-        animated
-      />
-      <IconButton
-        icon={SliderIcon}
-        size={24}
-        color={PaperColors.white}
-        animated
-      />
+      <View style={styles.rightWrapper}>
+        <IconButton
+          icon={PaletteIcon}
+          size={24}
+          color={PaperColors.white}
+          animated
+        />
+        <IconButton
+          icon={SliderIcon}
+          size={24}
+          color={PaperColors.white}
+          animated
+        />
+      </View>
     </ImageBackground>
   );
 };
