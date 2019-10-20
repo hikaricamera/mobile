@@ -4,7 +4,9 @@ import {
   changeCameraFlashMode,
   changeCameraType,
 } from '../actions/CameraAction';
-import { CameraType } from './CameraConstantType';
+
+/* Types */
+import { CameraType, CameraFlashModeType } from './CameraConstantType';
 
 export type ChangeCapturingStateType = ReturnType<typeof changeCapturingState>;
 export type ChangeFlashModeType = ReturnType<typeof changeCameraFlashMode>;
@@ -18,4 +20,5 @@ export type ActionsType =
 export declare interface StatesType {
   capturingPhoto: boolean;
   cameraType: CameraType;
+  cameraFlashMode: CameraFlashModeType;
 }

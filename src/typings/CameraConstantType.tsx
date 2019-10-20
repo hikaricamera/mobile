@@ -9,6 +9,6 @@ export type CameraFlashModeType =
   | typeof Camera.Constants.FlashMode.auto
   | typeof Camera.Constants.FlashMode.torch;
 
-export type CameraType =
+export type CameraTypeType =
   | typeof Camera.Constants.Type.front
   | typeof Camera.Constants.Type.back;
