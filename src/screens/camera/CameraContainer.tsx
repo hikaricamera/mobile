@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 /* Components */
 import { StyleSheet, View, Text } from 'react-native';
 import { Camera } from 'expo-camera';
+import CameraPinchBox from './CameraPinchBox';
 
 /* Actions */
 import { changeCapturingState } from '../../actions/CameraAction';
@@ -20,6 +21,12 @@ import * as Permissions from 'expo-permissions';
 import * as MediaLibrary from 'expo-media-library';
 
 /* Constants */
+import {
+  CAMERA_MAX_ZOOM,
+  CAMERA_MIN_ZOOM,
+  CAMERA_ZOOM_PINCH_ATTENUATION,
+  CAMERA_ZOOM_OUT_PINCH_ATTENUATION,
+} from '../../constants/CameraConstants';
 const CAMERA_PERMISSION = {
   CHECKING: 0,
   DISALLOWED: 1,
@@ -81,8 +88,9 @@ const CameraContainer = ({
   const [cameraPermissionGranted, setCameraPermissionGranted] = useState(
     CAMERA_PERMISSION.CHECKING,
   );
+  const [zoom, setZoom] = useState<number>(0.001);
 
-  // Effects
+  // Helpers
   const checkCameraPermission = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     if (status === 'granted') {
@@ -96,15 +104,32 @@ const CameraContainer = ({
     await Permissions.askAsync(Permissions.CAMERA_ROLL);
   };
 
-  useEffect(() => {
-    checkCameraPermission();
-    checkCameraRollPermission();
-  }, []);
-
   const onPictureSaved = async (photo: any) => {
     const { uri } = photo;
     await MediaLibrary.createAssetAsync(uri);
   };
+
+  const onChangeZoom = (scale: number, velocity: number) => {
+    let finalScale = 1;
+    if (velocity > 0) {
+      finalScale = 1 + (1.1 * scale) / CAMERA_ZOOM_PINCH_ATTENUATION;
+    } else {
+      finalScale = 1 - scale / CAMERA_ZOOM_OUT_PINCH_ATTENUATION;
+    }
+    const newZoom = zoom * finalScale;
+
+    const clampedNewZoom = Math.max(
+      CAMERA_MIN_ZOOM,
+      Math.min(CAMERA_MAX_ZOOM, newZoom),
+    );
+    setZoom(clampedNewZoom);
+  };
+
+  // Effects
+  useEffect(() => {
+    checkCameraPermission();
+    checkCameraRollPermission();
+  }, []);
 
   useEffect(() => {
     if (isCapturing) {
@@ -137,8 +162,9 @@ const CameraContainer = ({
         type={cameraType}
         flashMode={cameraFlashMode}
         autoFocus={Camera.Constants.AutoFocus.on}
+        zoom={zoom}
       >
-        <View style={styles.cameraViewWrapper} />
+        <CameraPinchBox onChangeZoom={onChangeZoom} />
       </Camera>
     </View>
   );

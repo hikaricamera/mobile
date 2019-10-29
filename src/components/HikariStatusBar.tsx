@@ -43,9 +43,8 @@ const HikariStatusBar = ({
     // A hacky way to get the correct status bar height.
     // The native can only compute the correct status bar height when
     // it is shown. Hence the status bar is first visible then hidden.
-    const { statusBarHeight } = Constants;
-    if (!hideStatusBar && statusBarHeight > 0) {
-      reportStatusBarHeight(statusBarHeight);
+    if (!hideStatusBar && Constants.statusBarHeight > 0) {
+      reportStatusBarHeight(Constants.statusBarHeight);
     }
   }, [hideStatusBar]);
 
