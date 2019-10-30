@@ -1,0 +1,4 @@
+export const CAMERA_MAX_ZOOM = 0.6;
+export const CAMERA_MIN_ZOOM = 0.001;
+export const CAMERA_ZOOM_PINCH_ATTENUATION = 50;
+export const CAMERA_ZOOM_OUT_PINCH_ATTENUATION = 20;
