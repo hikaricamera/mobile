@@ -7,6 +7,7 @@ import { FullStatesType } from '../typings/DataType';
 
 const DEFAULT_STATE = {
   statusBarHeight: 0,
+  isShowingZoomSlider: false,
 };
 
 export default (state: StatesType = DEFAULT_STATE, action: ActionsType) => {
