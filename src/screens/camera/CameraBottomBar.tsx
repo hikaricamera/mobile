@@ -9,10 +9,10 @@ import {
   Colors as PaperColors,
 } from 'react-native-paper';
 import ImageIcon from '../../assets/icons/image.png';
-import WheelIcon from '../../assets/icons/color_wheel.png';
+import FrameIcon from '../../assets/icons/frame.png';
 import CameraButtonIcon from '../../assets/icons/camera_button.png';
 import PaletteIcon from '../../assets/icons/palette.png';
-import SliderIcon from '../../assets/icons/slider.png';
+import QueueIcon from '../../assets/icons/queue.png';
 import BottomBackgroundImage from '../../assets/images/background_bottom.png';
 
 /* Actions */
@@ -70,7 +70,7 @@ const CameraBottomBar = ({ capturePhoto }: PropsType) => {
           animated
         />
         <IconButton
-          icon={WheelIcon}
+          icon={FrameIcon}
           size={24}
           color={PaperColors.white}
           animated
@@ -90,7 +90,7 @@ const CameraBottomBar = ({ capturePhoto }: PropsType) => {
           animated
         />
         <IconButton
-          icon={SliderIcon}
+          icon={QueueIcon}
           size={24}
           color={PaperColors.white}
           animated
