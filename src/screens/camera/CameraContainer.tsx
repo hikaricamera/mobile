@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 /* Components */
 import { StyleSheet, View, Text } from 'react-native';
 import { Camera } from 'expo-camera';
-import CameraPinchBox from './CameraPinchBox';
+import CameraComplexGestureHandler from './CameraComplexGestureHandler';
+import CameraZoomSlider from './CameraZoomSlider';
 
 /* Actions */
 import { changeCapturingState } from '../../actions/CameraAction';
@@ -25,7 +26,6 @@ import {
   CAMERA_MAX_ZOOM,
   CAMERA_MIN_ZOOM,
   CAMERA_ZOOM_PINCH_ATTENUATION,
-  CAMERA_ZOOM_OUT_PINCH_ATTENUATION,
 } from '../../constants/CameraConstants';
 const CAMERA_PERMISSION = {
   CHECKING: 0,
@@ -89,6 +89,9 @@ const CameraContainer = ({
     CAMERA_PERMISSION.CHECKING,
   );
   const [zoom, setZoom] = useState<number>(0.001);
+  const [isShowingZoomSlider, setIsShowingZoomSlider] = useState<boolean>(
+    false,
+  );
 
   // Helpers
   const checkCameraPermission = async () => {
@@ -110,19 +113,26 @@ const CameraContainer = ({
   };
 
   const onChangeZoom = (scale: number, velocity: number) => {
-    let finalScale = 1;
-    if (velocity > 0) {
-      finalScale = 1 + (1.1 * scale) / CAMERA_ZOOM_PINCH_ATTENUATION;
-    } else {
-      finalScale = 1 - scale / CAMERA_ZOOM_OUT_PINCH_ATTENUATION;
-    }
-    const newZoom = zoom * finalScale;
+    const scaleDelta = velocity / CAMERA_ZOOM_PINCH_ATTENUATION;
+    const newZoom = zoom + scaleDelta;
 
     const clampedNewZoom = Math.max(
       CAMERA_MIN_ZOOM,
       Math.min(CAMERA_MAX_ZOOM, newZoom),
     );
     setZoom(clampedNewZoom);
+  };
+
+  const onSetNewZoom = (newZoom: number) => {
+    setZoom(newZoom);
+  };
+
+  const onShowZoomSlider = () => {
+    setIsShowingZoomSlider(true);
+  };
+
+  const onHideZoomSlider = () => {
+    setIsShowingZoomSlider(false);
   };
 
   // Effects
@@ -145,29 +155,41 @@ const CameraContainer = ({
   }, [isCapturing]);
 
   // Render
-  if (cameraPermissionGranted === CAMERA_PERMISSION.CHECKING) {
-    return <View />;
-  } else if (cameraPermissionGranted === CAMERA_PERMISSION.DISALLOWED) {
-    return (
-      <View style={styles.wrapper}>
-        <Text>Permissions Denied</Text>
-      </View>
-    );
+  switch (cameraPermissionGranted) {
+    case CAMERA_PERMISSION.CHECKING:
+      return <View />;
+    case CAMERA_PERMISSION.DISALLOWED:
+      return (
+        <View style={styles.wrapper}>
+          <Text>Permissions Denied</Text>
+        </View>
+      );
+    default:
+      return (
+        <View style={styles.wrapper}>
+          <CameraZoomSlider
+            isShowingZoomSlider={isShowingZoomSlider}
+            onShowZoomSlider={onShowZoomSlider}
+            onHideZoomSlider={onHideZoomSlider}
+            onDragZoomSlider={onSetNewZoom}
+            zoom={zoom}
+          />
+          <Camera
+            ref={cameraRef}
+            style={styles.cameraWrapper}
+            type={cameraType}
+            flashMode={cameraFlashMode}
+            autoFocus={Camera.Constants.AutoFocus.on}
+            zoom={zoom}
+          >
+            <CameraComplexGestureHandler
+              onChangeZoom={onChangeZoom}
+              onShowZoomSlider={onShowZoomSlider}
+            />
+          </Camera>
+        </View>
+      );
   }
-  return (
-    <View style={styles.wrapper}>
-      <Camera
-        ref={cameraRef}
-        style={styles.cameraWrapper}
-        type={cameraType}
-        flashMode={cameraFlashMode}
-        autoFocus={Camera.Constants.AutoFocus.on}
-        zoom={zoom}
-      >
-        <CameraPinchBox onChangeZoom={onChangeZoom} />
-      </Camera>
-    </View>
-  );
 };
 
 export default connect(
