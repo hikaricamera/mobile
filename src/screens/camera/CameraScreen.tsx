@@ -4,6 +4,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import CameraTopBar from './CameraTopBar';
 import CameraBottomBar from './CameraBottomBar';
+import CameraFilterSelectionBar from './CameraFilterSelectionBar';
 import CameraContainer from './CameraContainer';
 import HikariStatusBar from '../../components/HikariStatusBar';
 
@@ -25,6 +26,7 @@ const CameraScreen = () => (
       <CameraContainer />
       <CameraTopBar />
     </View>
+    <CameraFilterSelectionBar />
     <CameraBottomBar />
   </View>
 );
