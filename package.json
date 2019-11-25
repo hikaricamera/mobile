@@ -30,7 +30,8 @@
     "react-navigation": "^3.12.0",
     "react-redux": "6.0.1",
     "redux": "4.0.1",
-    "expo-media-library": "~7.0.0"
+    "expo-media-library": "~7.0.0",
+    "expo-haptics": "~7.0.0"
   },
   "devDependencies": {
     "@expo/samples": "^3.0.3",
