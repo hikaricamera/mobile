@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 /* Components */
-import { StatusBar } from 'react-native';
+import { StatusBar, AsyncStorage } from 'react-native';
 
 /* Actions */
 import { setStatusBarHeight } from '../actions/UIControlAction';
@@ -43,9 +43,26 @@ const HikariStatusBar = ({
     // A hacky way to get the correct status bar height.
     // The native can only compute the correct status bar height when
     // it is shown. Hence the status bar is first visible then hidden.
-    if (!hideStatusBar && Constants.statusBarHeight > 0) {
-      reportStatusBarHeight(Constants.statusBarHeight);
-    }
+    const getStatusBarHeight = async () => {
+      const cachedStatusBarHeight = await AsyncStorage.getItem(
+        '_status_bar_height',
+      );
+      if (cachedStatusBarHeight !== null) {
+        const cachedStatusBarHeightInt = parseInt(cachedStatusBarHeight);
+        if (cachedStatusBarHeightInt > 0) {
+          reportStatusBarHeight(cachedStatusBarHeightInt);
+          return;
+        }
+      }
+      if (!hideStatusBar && Constants.statusBarHeight > 0) {
+        reportStatusBarHeight(Constants.statusBarHeight);
+        AsyncStorage.setItem(
+          '_status_bar_height',
+          `${Constants.statusBarHeight}`,
+        );
+      }
+    };
+    getStatusBarHeight();
   }, [hideStatusBar]);
 
   useEffect(() => {
