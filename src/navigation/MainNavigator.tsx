@@ -2,12 +2,12 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 /* Screens */
-import CameraScreen from '../screens/camera/CameraScreen';
+import CameraPermissionSwitch from '../screens/camera/CameraPermissionSwitch';
 
 const CAMERA_SCREEN = 'CAMERA_SCREEN';
 
 const MainNavigator = createSwitchNavigator({
-  [CAMERA_SCREEN]: CameraScreen,
+  [CAMERA_SCREEN]: CameraPermissionSwitch,
 });
 
 export default createAppContainer(MainNavigator);

@@ -8,8 +8,8 @@ import {
 } from 'react-native-gesture-handler';
 
 declare interface PropsType {
-  onChangeZoom: (scale: number, velocity: number) => void;
-  onShowZoomSlider: () => void;
+  onPinch: (scale: number, velocity: number) => void;
+  onTap: () => void;
 }
 
 /* Styles */
@@ -20,23 +20,16 @@ const styles = StyleSheet.create({
   },
 });
 
-const CameraComplexGestureHandler = ({
-  onChangeZoom,
-  onShowZoomSlider,
-}: PropsType) => {
+const CameraComplexGestureHandler = ({ onPinch, onTap }: PropsType) => {
   // Refs
   const pinchGestureHandlerRef = useRef(null);
   const tapGestureHandlerRef = useRef(null);
 
   // Helpers
-  const onTapGestureEvent = () => {
-    onShowZoomSlider();
-  };
-
   const onPinchGestureEvent = ({ nativeEvent }: any) => {
     const { scale, velocity } = nativeEvent;
-    onChangeZoom(scale, velocity);
-    onShowZoomSlider();
+    onPinch(scale, velocity);
+    onTap();
   };
 
   // Render
@@ -44,7 +37,7 @@ const CameraComplexGestureHandler = ({
     <ForceTouchGestureHandler
       ref={tapGestureHandlerRef}
       simultaneousHandlers={pinchGestureHandlerRef}
-      onGestureEvent={onTapGestureEvent}
+      onGestureEvent={onTap}
       minForce={0}
     >
       <View style={styles.wrapper}>
