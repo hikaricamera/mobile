@@ -99,6 +99,7 @@ const CameraContainer = ({
   const onPictureSaved = async (photo: any) => {
     const { uri } = photo;
     await MediaLibrary.createAssetAsync(uri);
+    completeCapturing();
   };
 
   // Effects
@@ -111,7 +112,6 @@ const CameraContainer = ({
           onPictureSaved,
         });
       }
-      completeCapturing();
     }
   }, [isCapturing]);
 
